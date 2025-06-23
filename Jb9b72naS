@@ -1,0 +1,22 @@
+local elev = script.Parent
+local Players = game:GetService("Players")
+ 
+local TweenService = game:GetService("TweenService")
+local tweenInfo = TweenInfo.new(
+    3,
+    Enum.EasingStyle.Quad,
+    Enum.EasingDirection.Out,
+    0,
+    false
+)
+ 
+elev.Touched:Connect(function(hit)
+    
+    if not Players:GetPlayerFromCharacter(hit.Parent) then return end
+    
+    local Tween = TweenService:Create(elev, tweenInfo, {
+        ["Size"] = Vector3.new(8, 50, 8)
+    })
+    
+    Tween:Play()
+end)
