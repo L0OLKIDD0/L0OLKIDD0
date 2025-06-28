@@ -1,0 +1,116 @@
+local player = game.Players.LocalPlayer
+local UIS = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local backpack = player:WaitForChild("Backpack")
+local char = player.Character or player.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+
+-- 1️⃣ Notificación
+game.StarterGui:SetCore("SendNotification", {
+    Title = "✅ KJ Script",
+    Text = "KJ script hecho por ChatGPT",
+    Duration = 4
+})
+
+-- 2️⃣ Humo rojo por 6 segundos
+local smokePart = Instance.new("Part")
+smokePart.Anchored = false
+smokePart.CanCollide = false
+smokePart.Transparency = 1
+smokePart.Size = Vector3.new(5, 6, 5)
+smokePart.CFrame = hrp.CFrame
+smokePart.Parent = char
+
+local conn = RunService.Heartbeat:Connect(function()
+    if hrp and smokePart then
+        smokePart.CFrame = hrp.CFrame
+    end
+end)
+
+local particle = Instance.new("ParticleEmitter", smokePart)
+particle.Texture = "rbxassetid://258128463"
+particle.Color = ColorSequence.new(Color3.fromRGB(255, 0, 0))
+particle.Size = NumberSequence.new({NumberSequenceKeypoint.new(0, 3), NumberSequenceKeypoint.new(1, 0)})
+particle.Rate = 40
+particle.Speed = NumberRange.new(2, 4)
+particle.Lifetime = NumberRange.new(2, 3)
+particle.Rotation = NumberRange.new(-180, 180)
+particle.RotSpeed = NumberRange.new(-90, 90)
+
+task.delay(6, function()
+    particle.Enabled = false
+    smokePart:Destroy()
+    conn:Disconnect()
+end)
+
+-- 3️⃣ Texto flotante "KJ"
+local billboard = Instance.new("BillboardGui", hrp)
+billboard.Size = UDim2.new(0, 80, 0, 25)
+billboard.StudsOffset = Vector3.new(0, 3, 0)
+billboard.AlwaysOnTop = true
+
+local label = Instance.new("TextLabel", billboard)
+label.Size = UDim2.new(1, 0, 1, 0)
+label.BackgroundTransparency = 1
+label.Text = "KJ"
+label.TextColor3 = Color3.fromRGB(255, 0, 0)
+label.Font = Enum.Font.GothamBold
+label.TextScaled = true
+
+local stroke = Instance.new("UIStroke", label)
+stroke.Color = Color3.fromRGB(255, 100, 100)
+stroke.Thickness = 2
+
+-- 4️⃣ Tool: “20 20 20 dorp kick”
+local tool1 = Instance.new("Tool")
+tool1.Name = "20 20 20 dorp kick"
+tool1.RequiresHandle = false
+
+tool1.Activated:Connect(function()
+    if not getgenv()["Animator"] then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/xhayper/Animator/main/Source/Main.lua"))()
+    end
+
+    local character = player.Character
+    if not character then return end
+
+    local Anim = Animator.new(character, 18723284950)
+    Anim:Play()
+
+    local sound = Instance.new("Sound")
+    sound.SoundId = "rbxassetid://18511513629"
+    sound.Volume = 2
+    sound.Parent = character
+    sound:Play()
+
+    local hum = character:FindFirstChildOfClass("Humanoid")
+    if hum then
+        hum.WalkSpeed = 100
+        task.delay(6, function()
+            if hum then hum.WalkSpeed = 16 end
+        end)
+    end
+
+    Anim.Stopped:Wait()
+end)
+
+tool1.Parent = backpack
+
+-- 5️⃣ Tool: “Unlimited ChatGPT Works”
+local tool2 = Instance.new("Tool")
+tool2.Name = "Unlimited ChatGPT Works"
+tool2.RequiresHandle = false
+
+tool2.Activated:Connect(function()
+    if not getgenv()["Animator"] then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/xhayper/Animator/main/Source/Main.lua"))()
+    end
+
+    local character = player.Character
+    if not character then return end
+
+    local Anim = Animator.new(character, 93004321040752)
+    Anim:Play()
+end)
+
+tool2.Parent = backpack
